@@ -31,11 +31,11 @@
         </div>
     </div>
 
-    <form action="{{ route('upload.post.image') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('upload.post.image') }}" method="POST" id="uploadForm" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-6">
-                <input type="file" name="image" class="form-control">
+                <input type="file" name="image[]"  multiple class="form-control">
             </div>
 
             <div class="col-md-6">
@@ -43,6 +43,16 @@
             </div>
         </div>
     </form>
+    <script>
+        let form = document.getElementById('uploadForm');
+        let request = new XMLHttpRequest();
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let formData = new FormData(form);
+            request.open('post', '/image-upload' );
+            request.send(formData);
+        })
+    </script>
 </div>
 </body>
 </html>
